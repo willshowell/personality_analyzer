@@ -1,0 +1,36 @@
+{
+	"success": true,
+	"data": {
+		"sentiment": 0.88314,
+		"political": {
+			"libertarian": 0.27192999211817354,
+			"green": 0.06525078204908323,
+			"liberal": 0.11033990553871972,
+			"conservative": 0.5524793202940235
+		},
+		"personality": {
+			"extraversion": 0.384,
+			"openness": 0.730,
+			"agreeableness": 0.439,
+			"conscientiousness": 0.103
+		},
+		"persona": [{
+			"type": "intj",
+			"name": "architect",
+			"value": 0.23
+		}, {
+			"type": "entj",
+			"name": "commander",
+			"value": 0.17
+		}, {
+			"type": "enfp",
+			"name": "compaigner",
+			"value": 0.08
+		}],
+		"tags": {
+			"anime": 0.003982535730280216,
+			"anthropology": 0.020311181569223534,
+			"archery": 0.4893124752591462
+		}
+	}
+}
