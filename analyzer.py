@@ -45,6 +45,7 @@ def gimme_the_goods(text, tag_count=3, persona_count=3):
 	personality = indicoio.personality(text)
 	personas = indicoio.personas(text)
 	tags = indicoio.text_tags(text, top_n=tag_count)
+	
 
 	# Sort the personas to grab top ones
 	top_personas = dict(sorted(personas.items(),
@@ -62,8 +63,6 @@ def gimme_the_goods(text, tag_count=3, persona_count=3):
 	# Rearrange the personas a bit
 	final_personas = []
 	for key, value in top_personas.items():
-		print(key)
-		print(value)
 		final_personas.append({
 			'type': persona_mapping[key],
 			'name': key,
