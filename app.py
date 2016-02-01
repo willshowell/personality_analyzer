@@ -16,7 +16,7 @@ def index():
 @app.route('/_twitter')
 def twitter():
     handle = request.args.get('handle', 'jack' , type=str)
-    include_retweets = request.args.get('include_retweets', True, type=bool)
+    include_retweets = bool(request.args.get('include_retweets', 0, type=int))
     count = request.args.get('count', 0, type=int)
     
     # build a temp JSON object
