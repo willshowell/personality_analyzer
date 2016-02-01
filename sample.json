@@ -14,7 +14,7 @@
 			"agreeableness": 0.439,
 			"conscientiousness": 0.103
 		},
-		"persona": [{
+		"personas": [{
 			"type": "intj",
 			"name": "architect",
 			"value": 0.23
