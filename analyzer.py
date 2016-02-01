@@ -4,6 +4,8 @@ import operator
 
 import traceback
 
+import sys
+
 # Get the key from the environment
 indicoio.config.api_key = os.environ["INDICO_KEY"]
 
@@ -15,7 +17,7 @@ persona_mapping = {
     "advocate": "infj",
     "mediator": "infp",
     "protagonist": "enfj",
-    "compaigner": "enfp",
+    "campaigner": "enfp",
     "logistician": "istj",
     "defender": "isfj",
     "executive": "estj",
@@ -45,7 +47,6 @@ def gimme_the_goods(text, tag_count=3, persona_count=3):
 	personality = indicoio.personality(text)
 	personas = indicoio.personas(text)
 	tags = indicoio.text_tags(text, top_n=tag_count)
-	
 
 	# Sort the personas to grab top ones
 	top_personas = dict(sorted(personas.items(),
@@ -67,7 +68,7 @@ def gimme_the_goods(text, tag_count=3, persona_count=3):
 			'type': persona_mapping[key],
 			'name': key,
 			'value': value,
-		})				
+		})
 	
 	return_dict = {
 		'sentiment': sentiment,
