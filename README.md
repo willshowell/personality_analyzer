@@ -19,3 +19,4 @@ For the Twitter inputs:
 	2. Reddit
 	3. ?
 * Figure out what the prof pic displays and emotions it contains
+* Remove and categorize hashtags, RT quotes, and emojis

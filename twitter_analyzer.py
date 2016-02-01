@@ -75,6 +75,7 @@ def analyze(handle, count, include_retweets):
 	    clean_tweet = " ".join(filter(lambda x:x[0]!="@", clean_tweet.split()))
 	    clean_tweet = " ".join(filter(lambda x:x[:4]!="http", clean_tweet.split()))
 	    
+	    
 	    # add end punction if there wasn't any
 	    if clean_tweet:
 		    if clean_tweet[-1] not in '.!?':
@@ -101,7 +102,8 @@ def analyze(handle, count, include_retweets):
 	else:
 		return_dict['message'] = message
 		
-	return_dict['paragraph'] = text
-	return_dict['tweets'] = len(tweets)
+	return_dict['text'] = text
+		
+	return_dict['tweet_count'] = len(tweets)
 	
 	return return_dict
