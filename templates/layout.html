@@ -2,11 +2,45 @@
 <html>
   <head>
     <title>Personalizer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="/static/js/personalizer.js"></script>
   </head>
   <body>
-    Hola Mundo!
-    <div id="twitter-input"></div>
-    <div id="results"></div>
+    <div id="container">
+      <div id="twitter-form-container">
+        <form id="twitter-form">
+          <div>
+            <label for="twitter-form-handle">Handle</label>
+            <input id="twitter-form-handle" type="text" value="wshowell"/>
+          </div>
+          <div>
+            <label for="twitter-form-count-10">10</label>
+            <input id="twitter-form-count-10" type="radio" name="count" value="10" checked />
+            <label for="twitter-form-count-100">100</label>
+            <input id="twitter-form-count-100" type="radio" name="count" value="100" />
+            <label for="twitter-form-count-1000">1000</label>
+            <input id="twitter-form-count-1000" type="radio" name="count" value="1000" />
+          </div>
+          <div>
+            <label for="twitter-form-include-rt">Include RTs?</label>
+            <input id="twitter-form-include-rt" type="checkbox" name="include_rt" value="Include Rts?"/>
+          </div>
+          <div>
+            <input id="twitter-form-submit" type="button" onclick="" value="Go"/>
+          </div>
+        
+        </form>
+      </div>
+      <div id="caption">
+      </div>
+      <div id="results">
+        <canvas id="sentiment" height=200 width=200></canvas>
+        <canvas id="political" height=200 width=200></canvas>
+        <canvas id="personality" height=200 width=200></canvas>
+        <canvas id="personas" height=200 width=200></canvas>
+        <canvas id="tags" height=200 width=200></canvas>
+      </div>      
+    </div>
   </body>
 </html>
