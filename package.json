@@ -1,0 +1,27 @@
+{
+  "name": "personalizer",
+  "version": "1.0.0",
+  "description": "profile your profile",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t [ babelify --presets [ react ] ] react/js/index.js -o static/build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willshowell/personalizer.git"
+  },
+  "author": "willshowell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willshowell/personalizer/issues"
+  },
+  "homepage": "https://github.com/willshowell/personalizer#readme",
+  "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "semantic-ui": "^2.1.8"
+  }
+}

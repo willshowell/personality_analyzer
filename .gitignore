@@ -64,3 +64,9 @@ target/
 
 # pyenv
 .python-version
+
+# frontend stuff
+node_modules
+semantic
+build
+
