@@ -4,11 +4,12 @@ var ReactDOM = require('react-dom');
 var SearchBox = require('./search/SearchBox');
 var TopBar = require('./top/TopBar');
 var Loader = require('./loader/Loader');
+var Results = require('./results/Results');
 
 var mostRecentSearch = {
-    username: '',
-    blurb: ''
-  };
+  username: '',
+  blurb: ''
+};
 
 var App = React.createClass({
   
@@ -17,13 +18,12 @@ var App = React.createClass({
       top: false,
       search: true,
       loading: false,
-      results: false
+      results: false,
+      mostRecentResults: null
     }
   },
   
   formSubmit: function(endpoint, username, blurb) {
-    //alert(endpoint+" - " + username+"-" + blurb);
-    
     //set username and blurb in top
     mostRecentSearch.username = "@" + username;
     mostRecentSearch.blurb = blurb;
@@ -33,12 +33,21 @@ var App = React.createClass({
       search: false,
       loading: true
     });
-    
-    //perform ajax
-    //
-    //
-    //change loading to false and results to true
-    
+
+    $.ajax({
+      url: endpoint,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({
+          loading: false,
+          results: true,
+          mostRecentResults: data
+        });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(endpoint, status, err.toString());
+      }.bind(this)
+    });
   },
   
   newSearch: function() {
@@ -57,8 +66,7 @@ var App = React.createClass({
         { this.state.search ? this.renderSearch() : null }
         { this.state.loading ? this.renderLoading() : null }
         { this.state.results ? this.renderResults(): null }
-      </div>      
-            
+      </div> 
     );
   },
   
@@ -78,7 +86,7 @@ var App = React.createClass({
   },
   
   renderResults: function() {
-    return <p>results</p>;    
+    return <Results data={this.state.mostRecentResults}/>;    
   }
   
 });

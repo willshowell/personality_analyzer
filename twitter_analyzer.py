@@ -61,8 +61,9 @@ def analyze(handle, count, include_retweets):
 	
 	print("Made {} requests to find {} tweets".format(requests, len(timeline)))
 	
-	# Get the oldest tweet timestamp
-	oldest_timestamp = timeline[-1]['created_at']	
+	# Get the first and last tweet timestamp
+	oldest_timestamp = timeline[-1]['created_at']
+	newest_timestamp = timeline[0]['created_at']
 	
 	# Grab the text from each tweet and put it in tweets
 	for tweet in timeline:
@@ -106,7 +107,8 @@ def analyze(handle, count, include_retweets):
 		return_dict['message'] = message
 		
 	return_dict['text'] = text
-	return_dict['oldest_timestamp'] = oldest_timestamp		
+	return_dict['oldest_timestamp'] = oldest_timestamp
+	return_dict['newest_timestamp'] = newest_timestamp	
 	return_dict['tweet_count'] = len(tweets)
 	
 	return return_dict

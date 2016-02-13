@@ -1,4 +1,12 @@
-body {
+.search.container {
 	padding-top: 10em;
 }
 
+.results.container {
+	padding-top: 6em;
+}
+
+.results.segment {
+	margin-top: 3em;
+	margin-bottom: 3em !important;
+}

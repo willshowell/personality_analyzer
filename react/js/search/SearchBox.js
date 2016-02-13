@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div className="ui center aligned main text container">
+      <div className="ui center aligned search text container">
         <h1 className="ui header">
           Personality Analyzer
           <div className="sub header">profile your profile</div>
