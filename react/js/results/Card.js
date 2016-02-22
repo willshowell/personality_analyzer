@@ -1,5 +1,4 @@
 var React = require('react');
-var Chart = require('./Chart');
 
 module.exports = React.createClass({
    
@@ -40,26 +39,79 @@ module.exports = React.createClass({
 });
 
 function getInfoContents(data) {
-  return (<div>{data.tweet_count}: {data.newest_timestamp}-{data.oldest_timestamp}</div>);
+  var oldest = new Date(Date.parse(data.oldest_timestamp));
+  var newest = new Date(Date.parse(data.newest_timestamp));
+  
+  return (
+    <div>
+      {data.tweet_count} tweets <br />
+      Begin: {oldest.toDateString()} <br />
+      End: {newest.toDateString()}</div>
+  );
 }
 
 function getSentimentContents(data) {
-  return (<div>{data}</div>);
+  return (
+    <div>
+      {data}
+    </div>
+  );
 }
 
 function getPoliticalContents(data) {
-  return (<div>political</div>); 
+  return (
+    <div>
+      Conservative: {data.Conservative} <br />
+      Green: {data.Green} <br />
+      Liberal: {data.Liberal} <br />
+      Libertarian: {data.Libertarian}
+    </div>
+  ); 
 }
 
 function getPersonalityContents(data) {
-  return (<div>personality</div>); 
+  return (
+    <div>
+      Agreeable: {data.agreeableness} <br />
+      Conscientious: {data.conscientiousness} <br />
+      Extraverted: {data.extraversion} <br />
+      Open: {data.openness}
+    </div>
+  ); 
 }
 
 function getPersonasContents(data) {
-  return (<div>political</div>); 
+  
+  var personas = data.map(function(value, index) {
+    return (
+      <div key={index}>{value.type.toUpperCase()}: {value.name}</div>
+    );
+  })
+  
+  return (
+    <div>
+      {personas}
+    </div>
+  ); 
+}
+
+function capitalizeWords(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 }
 
 function getTagsContents(data) {
-  return (<div>tags</div>);
+  var tags = Object.keys(data).map(function(value, index) {
+    return (
+      <div key={index}>{capitalizeWords(value.replace(/_/g, ' '))}</div>
+    );  
+  });
+  
+  return (
+    <div>
+      {tags}
+    </div>
+  );
 }
 
