@@ -42,8 +42,6 @@ var App = React.createClass({
       dataType: 'json',
       success: function(data) {
         
-        console.log(data);
-        
         if (data.success === true) {
           this.setState({
             loading: false,

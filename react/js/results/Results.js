@@ -19,7 +19,6 @@ module.exports = React.createClass({
     var personasAnalysis = this.props.data.data.personas;
     var tagsAnalysis = this.props.data.data.tags;
     
-    console.log(this.props.data);
     return (
       <div className="ui center aligned results text container">
           <Card title="Info" 

@@ -1,5 +1,8 @@
 var React = require('react');
 
+var DoughnutChart = require('react-chartjs').Doughnut;
+var BarChart = require('react-chartjs').Bar;
+
 module.exports = React.createClass({
    
   render: function() {
@@ -54,21 +57,70 @@ function getInfoContents(data) {
 }
 
 function getSentimentContents(data) {
+  
+  var color = data >= 0.5 ? "rgba(33,133,208,1)" : "rgba(219,40,40,1)";
+  
+  var chartData = {
+    labels: [""],
+    datasets: [
+      {
+        label: "",
+        fillColor: color,
+        strokeColor: color,
+        highlightFill: color,
+        highlightStrokeFill: color,
+        data: [Math.round(100*data)]
+      }
+    ]
+    
+  };
+  
+  var chartOptions = {
+    scaleOverride: true,
+    scaleSteps: 2,
+    scaleStepWidth: 50,
+    scaleStartValue: 0
+  };
+  
   return (
-    <div>
-      {data}
-    </div>
+    <BarChart data={chartData} options={chartOptions} />
   );
 }
 
 function getPoliticalContents(data) {
+  var chartData = [
+      {
+        value: Math.round(100*data.Conservative),
+        color: "#db2828",
+        highlight: "#db2828",
+        label: "Conservative"
+      },
+      {
+        value: Math.round(100*data.Green),
+        color: "#21ba45",
+        highlight: "#21ba45",
+        label: "Green"
+      },
+      {
+        value: Math.round(100*data.Liberal),
+        color: "#2185d0",
+        highlight: "#2185d0",
+        label: "Liberal"
+      },
+      {
+        value: Math.round(100*data.Libertarian),
+        color: "#fbbd08",
+        highlight: "#fbbd08",
+        label: "Libertarian"
+      }
+    ];
+    
+    var chartOptions = {
+      animateRotate: false,
+      tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>%",
+    };
   return (
-    <div>
-      Conservative: {data.Conservative} <br />
-      Green: {data.Green} <br />
-      Liberal: {data.Liberal} <br />
-      Libertarian: {data.Libertarian}
-    </div>
+    <DoughnutChart data={chartData} options={chartOptions} />
   ); 
 }
 
