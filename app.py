@@ -19,19 +19,16 @@ def twitter():
     include_retweets = bool(request.args.get('include_retweets', 0, type=int))
     count = request.args.get('count', 0, type=int)
     
-    # build a temp JSON object
-    return_dict = {
-        'success': False,
-        'message': 'Failure in obtaining or analyzing tweets'
-    }
-    
     # Run the analysis with the arguments
     try:
         return_dict = ta.analyze(handle=handle,
                                  include_retweets=include_retweets,
                                  count=count)
     except:
-        pass
+        return_dict = {
+            'success': False,
+            'message': "Unknown error."
+        }
     
     return jsonify(return_dict)
     

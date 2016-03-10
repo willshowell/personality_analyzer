@@ -1,7 +1,7 @@
 import os
 import analyzer
 import html
-from application_only_auth import Client
+from application_only_auth import Client, ClientException
 
 # get the keys from the environment
 twitter = Client(os.environ["TWITTER_KEY"],
@@ -18,12 +18,7 @@ def dict_to_query(d):
 def analyze(handle, count, include_retweets):
 	
 	request_size = 100
-	
-	# Initialize response
-	success = True
-	data = {}
-	message = "Failure in analyzing tweets"
-	
+
 	# grab all the tweets
 	timeline = []
 	tweets = []
@@ -40,9 +35,22 @@ def analyze(handle, count, include_retweets):
 	requests = 0
 	while len(timeline) < count:
 		# grab the next batch of tweets
-		new_tweets = twitter.request(
-		                request_url + dict_to_query(request_param)
-	                 )
+		try:
+			new_tweets = twitter.request(
+		        			request_url + dict_to_query(request_param)
+	                 	 )
+		except ClientException as ce:
+			return_dict = {
+				'success': False,
+				'message': "Unable to find @{}'s tweets.".format(handle)
+			}
+			return return_dict
+		except:
+			return_dict = {
+				'success': False,
+				'message': "Unknown error in retrieving @{}'s tweets.".format(handle)
+			}
+			return return_dict
 		
 		# if none were grabbed, it's time to quit
 		if len(new_tweets) == 0:
@@ -59,7 +67,7 @@ def analyze(handle, count, include_retweets):
 		
 		requests += 1
 	
-	print("Made {} requests to find {} tweets".format(requests, len(timeline)))
+	print("Requests: {}, Tweets: {}".format(requests, len(timeline)))
 	
 	# Get the first and last tweet timestamp
 	oldest_timestamp = timeline[-1]['created_at']
@@ -94,21 +102,21 @@ def analyze(handle, count, include_retweets):
 	try:
 		data = analyzer.gimme_the_goods(text)
 	except:
-		success = False
+		return_dict = {
+			'success': False,
+			'message': "Unknown error in analyzing @{}'s tweets.".format(handle)
+		}
+		return return_dict
 	
 	# if everything is hunky dory, return full analysis, 
 	# otherwise send failure and message
 	return_dict = {
-		'success': success,
+		'success': True,
+		'data': data,
+		'text': text,
+		'oldest_timestamp': oldest_timestamp,
+		'newest_timestamp': newest_timestamp,
+		'tweet_count': len(tweets)		
 	}
-	if success:
-		return_dict['data'] = data
-	else:
-		return_dict['message'] = message
-		
-	return_dict['text'] = text
-	return_dict['oldest_timestamp'] = oldest_timestamp
-	return_dict['newest_timestamp'] = newest_timestamp	
-	return_dict['tweet_count'] = len(tweets)
 	
 	return return_dict

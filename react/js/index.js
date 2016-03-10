@@ -5,6 +5,7 @@ var SearchBox = require('./search/SearchBox');
 var TopBar = require('./top/TopBar');
 var Loader = require('./loader/Loader');
 var Results = require('./results/Results');
+var Error = require('./results/Error');
 
 var mostRecentSearch = {
   username: '',
@@ -19,7 +20,9 @@ var App = React.createClass({
       search: true,
       loading: false,
       results: false,
-      mostRecentResults: null
+      error: false,
+      mostRecentResults: null,
+      errorMessage: null
     }
   },
   
@@ -38,11 +41,23 @@ var App = React.createClass({
       url: endpoint,
       dataType: 'json',
       success: function(data) {
-        this.setState({
-          loading: false,
-          results: true,
-          mostRecentResults: data
-        });
+        
+        console.log(data);
+        
+        if (data.success === true) {
+          this.setState({
+            loading: false,
+            results: true,
+            mostRecentResults: data
+          });
+        } else {
+          this.setState({
+            loading: false,
+            error: true,
+            errorMessage: data.message
+          });
+        }        
+        
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(endpoint, status, err.toString());
@@ -55,7 +70,10 @@ var App = React.createClass({
       top: false,
       search: true,
       loading: false,
-      results: false
+      results: false,
+      error: false,
+      mostRecentResults: null,
+      errorMessage: null
     })
   },
   
@@ -66,6 +84,7 @@ var App = React.createClass({
         { this.state.search ? this.renderSearch() : null }
         { this.state.loading ? this.renderLoading() : null }
         { this.state.results ? this.renderResults(): null }
+        { this.state.error ? this.renderError(): null }
       </div> 
     );
   },
@@ -87,6 +106,10 @@ var App = React.createClass({
   
   renderResults: function() {
     return <Results data={this.state.mostRecentResults}/>;    
+  },
+  
+  renderError: function() {
+    return <Error data={this.state.errorMessage}/>;
   }
   
 });

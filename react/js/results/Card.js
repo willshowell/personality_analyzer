@@ -26,6 +26,9 @@ module.exports = React.createClass({
       case "Tags":
         contents = getTagsContents(this.props.data);
         break;
+      case "Error":
+        contents = this.props.data;
+        break;
     }
     
     return (
