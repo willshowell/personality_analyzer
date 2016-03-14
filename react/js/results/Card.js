@@ -2,6 +2,7 @@ var React = require('react');
 
 var DoughnutChart = require('react-chartjs').Doughnut;
 var BarChart = require('react-chartjs').Bar;
+var RadarChart = require('react-chartjs').Radar;
 
 module.exports = React.createClass({
    
@@ -79,7 +80,8 @@ function getSentimentContents(data) {
     scaleOverride: true,
     scaleSteps: 2,
     scaleStepWidth: 50,
-    scaleStartValue: 0
+    scaleStartValue: 0,
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>%"
   };
   
   return (
@@ -125,21 +127,44 @@ function getPoliticalContents(data) {
 }
 
 function getPersonalityContents(data) {
+  var chartData = {
+    labels: ["Agreeable", "Conscientious", "Extraverted", "Open"],
+    datasets: [
+      {
+        label: "",
+        fillColor: "rgba(33,133,208,0.8)",
+        strokeColor: "rgba(33,133,208,0.8)",
+        pointColor: "rgba(33,133,208,0.8)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(33,133,208,1)",
+        data: [Math.round(100*data.agreeableness), 
+               Math.round(100*data.conscientiousness),
+               Math.round(100*data.extraversion),
+               Math.round(100*data.openness)]
+      }
+    ]
+  };
+  var chartOptions = {
+    scaleOverride: true,
+    scaleSteps: 4,
+    scaleStepWidth: 25,
+    scaleStartValue: 0,
+    datasetStrokeWidth: 0,
+    pointLabelFontSize : 14,
+    pointDot: false,
+    tooltipTemplate: "<%= value %>%"
+  };
   return (
-    <div>
-      Agreeable: {data.agreeableness} <br />
-      Conscientious: {data.conscientiousness} <br />
-      Extraverted: {data.extraversion} <br />
-      Open: {data.openness}
-    </div>
-  ); 
+    <RadarChart data={chartData} options={chartOptions} height="180"/>
+  );
 }
 
 function getPersonasContents(data) {
   
   var personas = data.map(function(value, index) {
     return (
-      <div key={index}>{value.type.toUpperCase()}: {value.name}</div>
+      <div key={index}>{capitalizeWords(value.name)} ({value.type.toUpperCase()})</div>
     );
   })
   

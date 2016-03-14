@@ -13,11 +13,12 @@ module.exports = React.createClass({
       oldest_timestamp: this.props.data.oldest_timestamp,
       newest_timestamp: this.props.data.newest_timestamp
     }
+    var tagsAnalysis = this.props.data.data.tags;
     var sentimentAnalysis = this.props.data.data.sentiment;
     var politicalAnalysis = this.props.data.data.political;
     var personalityAnalysis = this.props.data.data.personality;
     var personasAnalysis = this.props.data.data.personas;
-    var tagsAnalysis = this.props.data.data.tags;
+    
     
     return (
       <div className="ui center aligned results text container">
@@ -25,6 +26,10 @@ module.exports = React.createClass({
                 canvasID="canvas-info" 
                 type="text"
                 data={infoAnalysis}/>
+          <Card title="Tags" 
+                canvasID="canvas-tags" 
+                type="text"
+                data={tagsAnalysis}/>
           <Card title="Sentiment" 
                 canvasID="canvas-sentiment" 
                 type="chart"
@@ -41,10 +46,6 @@ module.exports = React.createClass({
                 canvasID="canvas-personas" 
                 type="text"
                 data={personasAnalysis}/>
-          <Card title="Tags" 
-                canvasID="canvas-tags" 
-                type="text"
-                data={tagsAnalysis}/>
       </div>
     );
   }
