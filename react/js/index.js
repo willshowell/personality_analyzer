@@ -6,6 +6,7 @@ var TopBar = require('./top/TopBar');
 var Loader = require('./loader/Loader');
 var Results = require('./results/Results');
 var Error = require('./results/Error');
+var Footer = require('./footer/Footer');
 
 var mostRecentSearch = {
   username: '',
@@ -20,6 +21,7 @@ var App = React.createClass({
       search: true,
       loading: false,
       results: false,
+      footer: true,
       error: false,
       mostRecentResults: null,
       errorMessage: null
@@ -34,7 +36,8 @@ var App = React.createClass({
     this.setState({
       top: true,
       search: false,
-      loading: true
+      loading: true,
+      footer: false
     });
 
     $.ajax({
@@ -55,7 +58,6 @@ var App = React.createClass({
             errorMessage: data.message
           });
         }        
-        
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(endpoint, status, err.toString());
@@ -70,6 +72,7 @@ var App = React.createClass({
       loading: false,
       results: false,
       error: false,
+      footer: true,
       mostRecentResults: null,
       errorMessage: null
     })
@@ -83,6 +86,7 @@ var App = React.createClass({
         { this.state.loading ? this.renderLoading() : null }
         { this.state.results ? this.renderResults(): null }
         { this.state.error ? this.renderError(): null }
+        { this.state.footer ? this.renderFooter(): null }
       </div> 
     );
   },
@@ -108,6 +112,10 @@ var App = React.createClass({
   
   renderError: function() {
     return <Error data={this.state.errorMessage}/>;
+  },
+  
+  renderFooter: function() {
+    return <Footer />;
   }
   
 });

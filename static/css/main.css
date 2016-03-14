@@ -1,5 +1,5 @@
 .search.container {
-	padding-top: 10em;
+	padding-top: 8em;
 }
 
 .results.container {
@@ -9,4 +9,23 @@
 .results.segment {
 	margin-top: 3em;
 	margin-bottom: 3em !important;
+}
+
+.footer.segment {
+	position: absolute;
+	bottom: 0px;
+	text-align: right;
+	width: 95%;
+}
+
+.footer-text {
+	font-size: 75%;
+}
+
+.container {
+	height: 100%;
+}
+
+#react-container {
+	height: 100%;
 }
