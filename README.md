@@ -2,7 +2,7 @@
 
 > profile your profile
 
-The [Personality Analyzer](http://personality-analyzer.herokuapp.com) app collects your tweets to determine basic personality traits. It is built around the Twitter and Indico APIs.
+The [Personality Analyzer](http://personality-analyzer.willshowell.com) app collects your tweets to determine basic personality traits. It is built around the Twitter and Indico APIs.
 
 ---
 
