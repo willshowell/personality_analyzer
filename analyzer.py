@@ -43,7 +43,8 @@ def gimme_the_goods(text, tag_count=3, persona_count=3):
         
     # Consume some of that api for analysis
     sentiment = indicoio.sentiment(text)
-    political = indicoio.political(text)
+    # TODO figure out a better way to handle this bug
+    political = indicoio.political(text[0:1100])
     personality = indicoio.personality(text)
     personas = indicoio.personas(text)
     tags = indicoio.text_tags(text, top_n=tag_count)
