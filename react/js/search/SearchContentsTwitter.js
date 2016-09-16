@@ -67,9 +67,6 @@ module.exports = React.createClass({
               onGo={this.handleGo} />
           </div>
         </div>
-        <div className="ui vertical divider">
-          <i className="twitter icon"></i>
-        </div>
         <div className="left aligned column">
           <div className="ui form">
             <RadioGroup 
